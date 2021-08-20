@@ -32,12 +32,18 @@ app.use(
 // });
 
 app.use(localsMiddleware);
+app.use((req, res, next) => {
+  res.header("Cross-Origin-Embedder-Policy", "require-corp");
+  res.header("Cross-Origin-Opener-Policy", "same-origin");
+  next();
+});
 app.use("/uploads", express.static("uploads"));
 app.use("/assets", express.static("assets"));
 app.use("/", rootRouter);
 app.use("/videos", videoRouter);
 app.use("/users", userRouter);
 app.use("/api", apiRouter);
+app.use("/convert", express.static("node_modules/@ffmpeg/core/dist"));
 
 export default app;
 //jGY4i0Jqnn8kOz9SZHtw-ZIfOXtUGwkm
