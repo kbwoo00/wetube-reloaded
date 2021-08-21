@@ -27,8 +27,8 @@ videoRouter
   .get(deleteVideo);
 videoRouter
   .route("/upload")
-  .get(getUpload)
   .all(protectorMiddleware)
+  .get(getUpload)
   .post(
     videoUpload.fields([
       { name: "video", maxCount: 1 },
