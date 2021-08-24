@@ -15,6 +15,8 @@ app.set("view engine", "pug");
 app.set("views", process.cwd() + "/src/views");
 app.use(logger);
 app.use(express.urlencoded({ extended: true }));
+// app.use(express.text()); string으로 변환해서 req.body에 제공 하나의 데이터만 할때 괜찮음.
+app.use(express.json());
 
 app.use(
   session({

@@ -34,9 +34,9 @@ const handleDownload = async () => {
   });
   await ffmpeg.load();
   ffmpeg.FS("writeFile", files.input, await fetchFile(videoFile));
-
+  //가상 공간에 파일 생성
   await ffmpeg.run("-i", files.input, "-r", "60", files.output);
-
+  //파일 변환
   await ffmpeg.run(
     "-i",
     files.input,
@@ -45,7 +45,7 @@ const handleDownload = async () => {
     "-frames:v",
     "1",
     files.thumb
-  );
+  ); // 썸네일 이미지 생성
 
   const mp4File = ffmpeg.FS("readFile", files.output);
   const thumbFile = ffmpeg.FS("readFile", files.thumb);
@@ -88,7 +88,7 @@ const handleStart = () => {
   recorder = new MediaRecorder(stream);
   recorder.ondataavailable = (event) => {
     videoFile = URL.createObjectURL(event.data);
-    console.log(videoFile);
+    // videoFile = 녹화된 비디오 저장된 URL
     video.srcObject = null;
     video.src = videoFile;
     video.loop = true;
@@ -105,6 +105,7 @@ const handleStart = () => {
 
 const init = async () => {
   stream = await navigator.mediaDevices.getUserMedia({
+    //MediaStream 반환해줌.
     audio: false,
     video: {
       width: 1024,

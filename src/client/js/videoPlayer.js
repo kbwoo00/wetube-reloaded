@@ -107,6 +107,7 @@ const handlePlayKeypress = (event) => {
 
 const handleEnded = () => {
   const { id } = videoContainer.dataset;
+  console.log(videoContainer);
   fetch(`/api/videos/${id}/view`, {
     method: "POST",
   });
