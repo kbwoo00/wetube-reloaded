@@ -8,6 +8,13 @@ import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
 import { localsMiddleware } from "./middlewares";
 import apiRouter from "./routers/apiRouter";
+import cors from "cors";
+
+const options = {
+  origin: "https://wetube-byungwoo.herokuapp.com",
+  credentials: true,
+  optionsSuccessSatus: 200,
+};
 
 const app = express();
 const logger = morgan("dev");
@@ -16,6 +23,7 @@ app.set("views", process.cwd() + "/src/views");
 app.use(logger);
 app.use(express.urlencoded({ extended: true }));
 // app.use(express.text()); string으로 변환해서 req.body에 제공 하나의 데이터만 할때 괜찮음.
+app.use(cors(options));
 app.use(express.json());
 
 app.use(
